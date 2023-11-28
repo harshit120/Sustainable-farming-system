@@ -48,6 +48,12 @@ exports.getPurchase = async (req, res) => {
 
 exports.createPurchase = async (req, res) => {
   try {
+    // Calculate the total amount
+    // let totalAmount = 0;
+    // req.body.items.forEach((item) => {
+    //   totalAmount += item.price * item.quantity;
+    // });
+
     const newPurchase = await Purchase.create({
       ...req.body,
       user: req.params.userId,

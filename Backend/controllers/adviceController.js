@@ -1,4 +1,4 @@
-const Advice = require('../Models/adviceModel');
+const Advice = require('../Models/advice.js');
 
 exports.getAllAdvices = async (req, res) => {
   try {

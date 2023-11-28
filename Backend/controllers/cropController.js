@@ -1,4 +1,4 @@
-const Crop = require('../Models/cropModel');
+const Crop = require('../Models/crop.js');
 
 exports.getAllCrops = async (req, res) => {
   try {
