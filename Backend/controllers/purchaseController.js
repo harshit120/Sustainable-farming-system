@@ -1,14 +1,14 @@
-const Fertilizer = require('../Models/fertilizer.js');
+const Purchase = require('../Models/purchase.js');
 
-exports.getAllFertilizers = async (req, res) => {
+exports.getAllPurchases = async (req, res) => {
   try {
-    const fertilizers = await Fertilizer.find();
+    const purchases = await Purchase.find({ user: req.params.userId });
 
     res.status(200).json({
       status: 'success',
-      results: fertilizers.length,
+      results: purchases.length,
       data: {
-        fertilizers,
+        purchases,
       },
     });
   } catch (err) {
@@ -19,19 +19,23 @@ exports.getAllFertilizers = async (req, res) => {
   }
 };
 
-exports.getFertilizer = async (req, res) => {
+exports.getPurchase = async (req, res) => {
   try {
-    const fertilizer = await Fertilizer.findById(req.params.id);
-    if (!fertilizer) {
+    const purchase = await Purchase.findOne({
+      _id: req.params.id,
+      user: req.params.userId,
+    });
+    if (!purchase) {
       return res.status(404).json({
         status: 'fail',
-        message: 'No fertilizer found with that ID',
+        message: 'No purchase found with that ID',
       });
     }
+
     res.status(200).json({
       status: 'success',
       data: {
-        fertilizer,
+        purchase,
       },
     });
   } catch (err) {
@@ -42,13 +46,17 @@ exports.getFertilizer = async (req, res) => {
   }
 };
 
-exports.createFertilizer = async (req, res) => {
+exports.createPurchase = async (req, res) => {
   try {
-    const newFertilizer = await Fertilizer.create(req.body);
+    const newPurchase = await Purchase.create({
+      ...req.body,
+      user: req.params.userId,
+    });
+
     res.status(201).json({
       status: 'success',
       data: {
-        fertilizer: newFertilizer,
+        purchase: newPurchase,
       },
     });
   } catch (err) {
@@ -59,26 +67,27 @@ exports.createFertilizer = async (req, res) => {
   }
 };
 
-exports.updateFertilizer = async (req, res) => {
+exports.updatePurchase = async (req, res) => {
   try {
-    const fertilizer = await Fertilizer.findByIdAndUpdate(
-      req.params.id,
+    const purchase = await Purchase.findOneAndUpdate(
+      { _id: req.params.id, user: req.params.userId },
       req.body,
       {
         new: true,
         runValidators: true,
       },
     );
-    if (!fertilizer) {
+    if (!purchase) {
       return res.status(404).json({
         status: 'fail',
-        message: 'No fertilizer found with that ID',
+        message: 'No purchase found with that ID',
       });
     }
+
     res.status(200).json({
       status: 'success',
       data: {
-        fertilizer: fertilizer,
+        purchase,
       },
     });
   } catch (err) {
@@ -89,15 +98,19 @@ exports.updateFertilizer = async (req, res) => {
   }
 };
 
-exports.deleteFertilizer = async (req, res) => {
+exports.deletePurchase = async (req, res) => {
   try {
-    await Fertilizer.findByIdAndDelete(req.params.id);
-    if (!fertilizer) {
+    const purchase = await Purchase.findOneAndDelete({
+      _id: req.params.id,
+      user: req.params.userId,
+    });
+    if (!purchase) {
       return res.status(404).json({
         status: 'fail',
-        message: 'No fertilizer found with that ID',
+        message: 'No purchase found with that ID',
       });
     }
+
     res.status(204).json({
       status: 'success',
       data: null,
