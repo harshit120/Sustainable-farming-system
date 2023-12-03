@@ -61,6 +61,12 @@ exports.getAllUsers = async (req, res) => {
 exports.getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({
+        status: 'fail',
+        message: 'No user found with that ID',
+      });
+    }
 
     res.status(200).json({
       status: 'success',
@@ -69,9 +75,9 @@ exports.getUser = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(400).json({
+    res.status(500).json({
       status: 'fail',
-      message: err,
+      message: 'Server error',
     });
   }
 };
@@ -99,6 +105,12 @@ exports.updateUser = async (req, res) => {
       new: true,
       runValidators: true,
     });
+    if (!user) {
+      return res.status(404).json({
+        status: 'fail',
+        message: 'No user found with that ID',
+      });
+    }
     res.status(200).json({
       status: 'success',
       data: {
@@ -116,6 +128,12 @@ exports.updateUser = async (req, res) => {
 exports.deleteUser = async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+      return res.status(404).json({
+        status: 'fail',
+        message: 'No user found with that ID',
+      });
+    }
     res.status(204).json({
       status: 'success',
       data: null,

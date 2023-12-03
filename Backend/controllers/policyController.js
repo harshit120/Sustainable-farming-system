@@ -1,14 +1,14 @@
-const Fertilizer = require('../Models/fertilizer.js');
+const Policy = require('../Models/policy.js');
 
-exports.getAllFertilizers = async (req, res) => {
+exports.getAllPolicies = async (req, res) => {
   try {
-    const fertilizers = await Fertilizer.find();
+    const policies = await Policy.find();
 
     res.status(200).json({
       status: 'success',
-      results: fertilizers.length,
+      results: policies.length,
       data: {
-        fertilizers,
+        policies,
       },
     });
   } catch (err) {
@@ -19,19 +19,20 @@ exports.getAllFertilizers = async (req, res) => {
   }
 };
 
-exports.getFertilizer = async (req, res) => {
+exports.getPolicy = async (req, res) => {
   try {
-    const fertilizer = await Fertilizer.findById(req.params.id);
-    if (!fertilizer) {
+    const policy = await Policy.findById(req.params.id);
+    if (!policy) {
       return res.status(404).json({
         status: 'fail',
-        message: 'No fertilizer found with that ID',
+        message: 'No policy found with that ID',
       });
     }
+
     res.status(200).json({
       status: 'success',
       data: {
-        fertilizer,
+        policy,
       },
     });
   } catch (err) {
@@ -42,13 +43,14 @@ exports.getFertilizer = async (req, res) => {
   }
 };
 
-exports.createFertilizer = async (req, res) => {
+exports.createPolicy = async (req, res) => {
   try {
-    const newFertilizer = await Fertilizer.create(req.body);
+    const newPolicy = await Policy.create(req.body);
+
     res.status(201).json({
       status: 'success',
       data: {
-        fertilizer: newFertilizer,
+        policy: newPolicy,
       },
     });
   } catch (err) {
@@ -59,26 +61,23 @@ exports.createFertilizer = async (req, res) => {
   }
 };
 
-exports.updateFertilizer = async (req, res) => {
+exports.updatePolicy = async (req, res) => {
   try {
-    const fertilizer = await Fertilizer.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      {
-        new: true,
-        runValidators: true,
-      },
-    );
-    if (!fertilizer) {
+    const policy = await Policy.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!policy) {
       return res.status(404).json({
         status: 'fail',
-        message: 'No fertilizer found with that ID',
+        message: 'No policy found with that ID',
       });
     }
+
     res.status(200).json({
       status: 'success',
       data: {
-        fertilizer: fertilizer,
+        policy,
       },
     });
   } catch (err) {
@@ -89,15 +88,16 @@ exports.updateFertilizer = async (req, res) => {
   }
 };
 
-exports.deleteFertilizer = async (req, res) => {
+exports.deletePolicy = async (req, res) => {
   try {
-    await Fertilizer.findByIdAndDelete(req.params.id);
-    if (!fertilizer) {
+    const policy = await Policy.findByIdAndDelete(req.params.id);
+    if (!policy) {
       return res.status(404).json({
         status: 'fail',
-        message: 'No fertilizer found with that ID',
+        message: 'No policy found with that ID',
       });
     }
+
     res.status(204).json({
       status: 'success',
       data: null,
