@@ -1,43 +1,4 @@
 const User = require('../Models/user.js');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-
-exports.signup = async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.create({ username, password });
-
-  const token = jwt.sign({ id: user._id }, 'secret', { expiresIn: '1h' });
-
-  res.status(201).json({
-    status: 'success',
-    data: {
-      token,
-      user,
-    },
-  });
-};
-
-exports.login = async (req, res) => {
-  const { username, password } = req.body;
-
-  const user = await User.findOne({ username });
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    return res.status(400).json({
-      status: 'fail',
-      message: 'Incorrect username or password',
-    });
-  }
-
-  const token = jwt.sign({ id: user._id }, 'secret', { expiresIn: '1h' });
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      token,
-      user,
-    },
-  });
-};
 
 exports.getAllUsers = async (req, res) => {
   try {
