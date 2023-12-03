@@ -13,13 +13,6 @@ router.post('/login', authController.login);
 
 router
   .route('/')
-  .get(authMiddleware.isAuthenticated, userController.getAllUsers)
-  .post(authMiddleware.isAuthenticated, userController.createUser)
-  .patch(authMiddleware.isAuthenticated, userController.updateUser)
-  .delete(authMiddleware.isAuthenticated, userController.deleteUser);
-
-router
-  .route('/')
   .get(userController.getAllUsers)
   .post(userController.createUser);
 
