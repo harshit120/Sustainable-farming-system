@@ -1,18 +1,18 @@
 const express = require('express');
 
 const adviceController = require('../controllers/adviceController');
-
+const { checkRole } = require('../auth/authMiddleware');
 const router = express.Router();
 
 router
   .route('/')
   .get(adviceController.getAllAdvices)
-  .post(adviceController.createAdvice);
+  .post(checkRole('admin'), adviceController.createAdvice);
 
 router
   .route('/:id')
   .get(adviceController.getAdvice)
-  .patch(adviceController.updateAdvice)
-  .delete(adviceController.deleteAdvice);
+  .patch(checkRole('admin'), adviceController.updateAdvice)
+  .delete(checkRole('admin'), adviceController.deleteAdvice);
 
 module.exports = router;

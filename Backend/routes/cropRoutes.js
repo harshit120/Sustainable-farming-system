@@ -1,18 +1,18 @@
 const express = require('express');
 
 const cropController = require('../controllers/cropController');
-
+const { checkRole } = require('../auth/authMiddleware');
 const router = express.Router();
 
 router
   .route('/')
   .get(cropController.getAllCrops)
-  .post(cropController.createCrop);
+  .post(checkRole('admin'), cropController.createCrop);
 
 router
   .route('/:id')
   .get(cropController.getCrop)
-  .patch(cropController.updateCrop)
-  .delete(cropController.deleteCrop);
+  .patch(checkRole('admin'), cropController.updateCrop)
+  .delete(checkRole('admin'), cropController.deleteCrop);
 
 module.exports = router;
