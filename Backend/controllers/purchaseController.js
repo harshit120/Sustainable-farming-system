@@ -2,7 +2,12 @@ const Purchase = require('../Models/purchase.js');
 
 exports.getAllPurchases = async (req, res) => {
   try {
-    const purchases = await Purchase.find({ user: req.params.userId });
+    let purchases;
+    if (req.user.role === 'admin') {
+      purchases = await Purchase.find();
+    } else {
+      purchases = await Purchase.find({ user: req.user._id });
+    }
 
     res.status(200).json({
       status: 'success',
@@ -21,10 +26,16 @@ exports.getAllPurchases = async (req, res) => {
 
 exports.getPurchase = async (req, res) => {
   try {
-    const purchase = await Purchase.findOne({
-      _id: req.params.id,
-      user: req.params.userId,
-    });
+    let purchase;
+    if (req.user.role === 'admin') {
+      purchase = await Purchase.findById(req.params.id);
+    } else {
+      purchase = await Purchase.findOne({
+        _id: req.params.id,
+        user: req.user._id,
+      });
+    }
+
     if (!purchase) {
       return res.status(404).json({
         status: 'fail',
@@ -56,7 +67,7 @@ exports.createPurchase = async (req, res) => {
 
     const newPurchase = await Purchase.create({
       ...req.body,
-      user: req.params.userId,
+      user: req.user._id,
     });
 
     res.status(201).json({
@@ -76,7 +87,7 @@ exports.createPurchase = async (req, res) => {
 exports.updatePurchase = async (req, res) => {
   try {
     const purchase = await Purchase.findOneAndUpdate(
-      { _id: req.params.id, user: req.params.userId },
+      { _id: req.params.id, user: req.user._id },
       req.body,
       {
         new: true,
@@ -108,7 +119,7 @@ exports.deletePurchase = async (req, res) => {
   try {
     const purchase = await Purchase.findOneAndDelete({
       _id: req.params.id,
-      user: req.params.userId,
+      user: req.user._id,
     });
     if (!purchase) {
       return res.status(404).json({
