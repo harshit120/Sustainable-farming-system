@@ -22,6 +22,10 @@ const fertilizerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  price:{
+    type: Number,
+    required: true
+  }
 });
 
 const Fertilizer = mongoose.model('Fertilizer', fertilizerSchema);
