@@ -15,7 +15,6 @@ const SignupForm = () => {
     email: "",
     region: "",
     landSize: "",
-   // createdAt: "",
     password: "",
    
   });
@@ -51,7 +50,7 @@ const SignupForm = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ formData }),
+      body: JSON.stringify(formData) ,
     });
 
     const finalData = {
