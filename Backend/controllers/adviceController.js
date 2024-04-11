@@ -109,3 +109,25 @@ exports.deleteAdvice = async (req, res) => {
     });
   }
 };
+
+exports.getAdviceByCropName=async(req,res)=>{
+  try {
+    const cropName = req.params.cropName
+    const adviceForCrop = await Advice.find({ crop_name: cropName });
+    if (!adviceForCrop) {
+      return res.status(404).json({
+        status: 'fail',
+        message: 'No advice found with this crop',
+      });
+    }
+    res.status(200).json({
+      status: 'success',
+      data: adviceForCrop,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};

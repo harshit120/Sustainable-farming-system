@@ -15,4 +15,8 @@ router
   .patch(checkRole('admin'), cropController.updateCrop)
   .delete(checkRole('admin'), cropController.deleteCrop);
 
+router
+  .route('/getCropByRegion/:region')
+  .get(cropController.getCropByRegion)
+
 module.exports = router;

@@ -15,4 +15,8 @@ router
   .patch(checkRole('admin'), adviceController.updateAdvice)
   .delete(checkRole('admin'), adviceController.deleteAdvice);
 
+router
+  .route('/getAdvice/:cropName')
+  .get(adviceController.getAdviceByCropName);
+
 module.exports = router;

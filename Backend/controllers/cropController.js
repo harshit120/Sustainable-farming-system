@@ -104,3 +104,25 @@ exports.deleteCrop = async (req, res) => {
     });
   }
 };
+
+exports.getCropByRegion=async(req,res)=>{
+try{
+  const region=req.params.region
+  const cropsInRegion = await Crop.find({ suitable_regions: { $in: [region] } });
+  if(!cropsInRegion){
+    return res.status(404).json({
+      status: 'fail',
+      message: 'No crop found for this region',
+    });
+  } res.status(200).json({
+      status:'success',
+      data:cropsInRegion,
+    });
+  
+}catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
