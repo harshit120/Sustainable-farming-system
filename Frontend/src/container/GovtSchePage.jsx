@@ -11,7 +11,7 @@ const GovtSchePage = () => {
   const fetchPolicies = async () => {
     console.log("log");
     try {
-      const response = await fetch("http://localhost:3000/api/v1/policies");
+      const response = await fetch("http://localhost:3001/api/v1/policies");
       const data = await response.json();
       console.log(data);
       setPolicies(data.data.policies);

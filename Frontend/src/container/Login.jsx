@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import bgimage from "../assets/bgimage.jpg"
 
-const LoginForm = () => {
-    //const setIsLoggedIn = props.setIsLoggedIn;
+const LoginForm = (props) => {
+    // const setIsLoggedIn = props.setIsLoggedIn;
     const navigate = useNavigate();
     
     const [showPassword, setShowPassword] = useState(false)
@@ -24,26 +25,25 @@ const LoginForm = () => {
     const submitHandler = async(event) => {
         event.preventDefault();
 
-        const response = await fetch("http://localhost:3000/api/v1/users/login", {
+        const response = await fetch("http://localhost:3001/api/v1/users/login", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ formData}),
+            body: JSON.stringify( formData),
           });
       
-          const movies = await response.json();
-          console.log(movies);
-          if (movies.message == "Login successful") {
+          const result = await response.json();
+          console.log(result);
+          if (result.status === "success") {
            
-            navigate("/fertilizerPage");
+            navigate("/");
+            toast.success("Login Success");
+            // setIsLoggedIn(true);
           }
-
-        // toast.success("Login Success");
-        // console.log(formData)
-        // setIsLoggedIn(true);
-       
-        
+          else{
+            toast.error(result.message);
+          }        
     }
 
     return (
@@ -98,11 +98,11 @@ const LoginForm = () => {
                     )}
                 </span>
 
-                <Link to="#">
+                {/* <Link to="#">
                     <p className="text-xs mt-1 text-blue-100 max-w-max ml-auto">
                         Forgot Password
                     </p>
-                </Link>
+                </Link> */}
             </label>
 
             <button className="bg-yellow-50 py-[8px] px-[12px] rounded-[8px] mt-6 font-semibold text-richblack-900">

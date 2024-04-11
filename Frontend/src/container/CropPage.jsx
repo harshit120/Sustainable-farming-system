@@ -36,7 +36,7 @@ const CropPage = () => {
   const fetchCrops = async () => {
     console.log("log");
     try {
-      const response = await fetch("http://localhost:3000/api/v1/crops");
+      const response = await fetch("http://localhost:3001/api/v1/crops");
       const data = await response.json();
       console.log(data);
       setCrops(data.data.crops);

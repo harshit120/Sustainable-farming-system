@@ -7,35 +7,25 @@ import Home from './container/Home';
 import Login from './container/Login';
 import Navbar from './container/Navbar'
 import Signup from './container/Signup';
-import {Route ,Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import {ToastContainer} from "react-toastify"
 import AboutUsPage from "./container/AboutUsPage"
 
 function App() {
   return (
     <div className="">
-
-    <Navbar/>
-    <Routes>
-      <Route index element={<Home/>}/>
-      <Route path="fertilizerPage" element={<FertilizerPage/>}/>
-      <Route path="cropPage" element={<CropPage/>}/>
-      <Route path="govtschePage" element={<GovtSchePage/>}/>
-      <Route path="faqPage" element={<FaqPage/>}/>
-      <Route path="aboutusPage" element={<AboutUsPage/>}/>
-      <Route path="login" element={<Signup/>}/>
-      <Route path="loginin" element={<Login/>}/>
-
-    </Routes>
-    {/* <Home/>
-    <Fertilizer/>
-    <Crop/>
-    <GovtSche/>
-    <Faq/>
-    <Footer/> */}
-
-    {/* <Signup/> */}
-    {/* <Login/> */}
-
+      <Navbar />
+      <ToastContainer />
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="fertilizerPage" element={<FertilizerPage />} />
+        <Route path="cropPage" element={<CropPage />} />
+        <Route path="govtschePage" element={<GovtSchePage />} />
+        <Route path="faqPage" element={<FaqPage />} />
+        <Route path="aboutusPage" element={<AboutUsPage />} />
+        <Route path="signup" element={<Signup />} />
+        <Route path="login" element={<Login />} />
+      </Routes>
     </div>
   );
 }
