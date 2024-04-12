@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import workInProgress from "../assets/workInProgress.jpg";
-import { hover } from "@testing-library/user-event/dist/hover";
-import Croppage2 from "./croppage2";
+import CropCard from "./CropCard";
 
 const CropPage = () => {
   const [crops, setCrops] = useState([
@@ -32,31 +30,29 @@ const CropPage = () => {
     fetchCrops();
   }, []); // Empty dependency array ensures the effect runs only once when the component mounts
 
-
   const fetchCrops = async () => {
     console.log("log");
     try {
-      const response = await fetch("http://localhost:3001/api/v1/crops");
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_API_ENDPOINT}/crops`);
       const data = await response.json();
       console.log(data);
       setCrops(data.data.crops);
     } catch (error) {
-      console.error('Error fetching fertilizers:', error);
+      console.error("Error fetching fertilizers:", error);
     }
   };
-  
+
   useEffect(() => {
     fetchCrops();
   }, []);
+
   return (
     <div className="bg-[#ACD2AD]">
       <h1 className="text-center text-4xl pt-4 ">Crops </h1>
       <div>
-      {crops.map((crop, index) => {
-        return (
-   <Croppage2  crop={crop} />
-        );
-      })}
+        {crops.map((crop, index) => {
+          return <CropCard crop={crop} />;
+        })}
       </div>
     </div>
   );

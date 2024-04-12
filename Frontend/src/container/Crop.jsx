@@ -1,19 +1,9 @@
 import React from "react";
 import crop from "../assets/crop.jpg";
 
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Crop = () => {
-  const style2 = `
-    .pp10{
-        
-        color: #000;
-font-size: 50px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
-    }
-    `;
   return (
     <div className="bg-[#ACD2AD] pt-[60px] px-[60px]">
       <p className="pp10 text-center ">Crop </p>
@@ -22,7 +12,12 @@ line-height: normal;
       </p>
       <div className="flex flex-row ">
         <div className="flex-1">
-          <img src={crop} alt="" srcset="" className="w-[500px] mb-[120px] rounded-2xl " />
+          <img
+            src={crop}
+            alt=""
+            srcset=""
+            className="w-[500px] mb-[120px] rounded-2xl "
+          />
         </div>
         <div className="flex-1 pt-[60px]">
           <p className="text-[19px] text-justify">
@@ -36,7 +31,13 @@ line-height: normal;
             practices, and empower farmers with adaptable solutions. Each crop,
             with its unique traits and adaptations, contributes to the intricate
             web of life that sustains our planet, paving the way for a more
-            resilient and fruitful future in agriculture.{" "}<NavLink to="/croppage" className="text-[16px] relative top-[2px] text-blue-700">Read More...</NavLink>
+            resilient and fruitful future in agriculture.{" "}
+            <NavLink
+              to="/croppage"
+              className="text-[16px] relative top-[2px] text-blue-700"
+            >
+              Read More...
+            </NavLink>
           </p>
         </div>
       </div>

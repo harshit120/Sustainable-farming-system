@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 import Fertilizerpage2 from './Fertilizerpage2';
 
 const FertilizerPage = () => {
   const [fertilizers, setFertilizers] = useState([]);
-  const [showMore, setShowMore] = useState(false);
 
   const fetchFertilizers = async () => {
     console.log("log");
     try {
-      const response = await fetch("http://localhost:3001/api/v1/fertilizers");
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_API_ENDPOINT}/fertilizers`);
       const data = await response.json();
       console.log(data);
       setFertilizers(data.data.fertilizers);

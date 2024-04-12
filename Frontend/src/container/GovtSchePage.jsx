@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import workInProgress from "../assets/workInProgress.jpg";
 import GovtPage2 from './govtpage2';
 
 const GovtSchePage = () => {
   const [policies, setPolicies] = useState([]);
 
- 
-
   const fetchPolicies = async () => {
-    console.log("log");
     try {
-      const response = await fetch("http://localhost:3001/api/v1/policies");
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_API_ENDPOINT}/policies`);
       const data = await response.json();
       console.log(data);
       setPolicies(data.data.policies);

@@ -18,6 +18,7 @@ const Navbar = () => {
 <NavLink className="hover:scale-150 " to="/fertilizerPage"   >Fertilizer</NavLink>
 <NavLink className="hover:scale-150 " to="/cropPage" >Crop</NavLink>
 <NavLink className="hover:scale-150 " to="/govtschePage" >Government Schemes</NavLink>
+<NavLink className="hover:scale-150 " to="/advice" >Advice</NavLink>
 <NavLink className="hover:scale-150 " to="/faqPage" >FAQ</NavLink>
 <NavLink className="hover:scale-150 " to="/aboutusPage" >About us</NavLink>
 <NavLink className="hover:scale-150 " to="/login" >Sign in </NavLink>

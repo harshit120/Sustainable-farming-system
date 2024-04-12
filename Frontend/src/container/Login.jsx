@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import bgimage from "../assets/bgimage.jpg"
 
 const LoginForm = (props) => {
@@ -25,7 +24,7 @@ const LoginForm = (props) => {
     const submitHandler = async(event) => {
         event.preventDefault();
 
-        const response = await fetch("http://localhost:3001/api/v1/users/login", {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_API_ENDPOINT}/users/login`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

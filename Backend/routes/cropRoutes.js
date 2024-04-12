@@ -16,7 +16,7 @@ router
   .delete(checkRole('admin'), cropController.deleteCrop);
 
 router
-  .route('/getCropByRegion/:region')
+  .route('/getCropsByRegion/:region')
   .get(cropController.getCropByRegion)
 
 module.exports = router;

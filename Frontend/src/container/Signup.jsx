@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router-dom";
 import bgimage from "../assets/bgimage.jpg";
 
 const SignupForm = () => {
-  const [accountType, setAccountType] = useState("student");
-
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -38,27 +36,30 @@ const SignupForm = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    if (formData.createPassword != formData.confirmPassword) {
+    if (formData.createPassword !== formData.confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
 
-    const response = await fetch("http://localhost:3001/api/v1/users/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_API_ENDPOINT}/users/signup`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
 
-    const finalData = {
-      ...formData,
-      accountType,
-    };
+    const signupRes = await response.json();
 
-    toast.success("Account Create Successfull");
-
-    navigate("/fertilizerPage");
+    if (signupRes.status === "success") {
+      toast.success("Account Create Successfull");
+      navigate("/fertilizerPage");
+    } else {
+      toast.error(signupRes.message)
+    }
   };
 
   return (
